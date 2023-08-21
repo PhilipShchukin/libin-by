@@ -2,9 +2,7 @@ import React from 'react'
 import { Routes, Route, NavLink } from 'react-router-dom'
 
 import './App.css'
-
 import HomePage from './pages/HomePage'
-console.log(12121)
 
 function App() {
     return (

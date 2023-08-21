@@ -4,34 +4,26 @@
         "commonjs": true,
         "es2021": true
     },
-    "extends": [
-        "plugin:react/recommended"
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest"
-    },
-    "plugins": [
-        "react"
-    ],
+    "extends": ["react-app", "react-app/jest"],
     "rules": {
         "no-console": "warn",
         "import/prefer-default-export": "off",
-        "react/jsx-no-useless-fragment": "warn"
-        // "import/order": [
-        //     "warn",
-        //     {
-        //         "groups": [
-        //             // "builtin",
-        //             // "external",
-        //             "internal",
-        //             "parent"
-        //             // "sibling"
-        //             // "index",
-        //             // "object",
-        //             // "type"
-        //         ],
-        //         "newlines-between": "always-and-inside-groups"
-        //     }
-        // ]
+        "react/jsx-no-useless-fragment": "warn",
+        "import/order": [
+            "warn",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "index",
+                    "object",
+                    "type"
+                ],
+                "newlines-between": "always-and-inside-groups"
+            }
+        ]
     }
 }
