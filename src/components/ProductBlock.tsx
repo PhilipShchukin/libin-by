@@ -8,21 +8,20 @@ type ProductBlockProps = {
     price: number
     image: string
 }
+
 export const ProductBlock: React.FC<ProductBlockProps> = ({
     title,
     price,
     image,
+    id,
 }) => {
     return (
         <div className="res">
             <div className="product-block">
                 <img
                     className="product-block__image"
-                    // src="https://aboevbrand.by/2%20-%20HUDI/hoodie%20black%20zhenschina%20vsegda%20dumaet.jpg"
                     src={image}
                     alt="product"
-                    // width={150}
-                    // height={150}
                 />
                 <h4 className="product-block__title">{title}</h4>
 
@@ -41,8 +40,6 @@ export const ProductBlock: React.FC<ProductBlockProps> = ({
                                 fill="white"
                             />
                         </svg>
-                        {/* <span>Добавить в корзину</span>
-          <i>{count}</i> */}
                     </div>
                 </div>
             </div>

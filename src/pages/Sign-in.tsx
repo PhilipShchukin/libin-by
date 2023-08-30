@@ -3,6 +3,9 @@ import '../scss/signUp.scss'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+import { useAppDispatch } from '../hooks/hooks'
+import { setIsLogIn } from '../store/slices/usersSlice'
+
 type Inputs = {
     email: string
     name: string
@@ -17,8 +20,18 @@ function SignIn() {
     } = useForm<Inputs>({
         mode: 'onBlur',
     })
+
+    const dispatsh = useAppDispatch()
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data)
+
+        if (
+            localStorage.getItem('userEmail') === data.email &&
+            localStorage.getItem('userPassword') === data.password
+        ) {
+            dispatsh(setIsLogIn(true))
+        }
     }
 
     return (

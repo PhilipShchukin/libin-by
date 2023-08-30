@@ -1,9 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { setIsLogIn } from '../store/slices/usersSlice'
+
 import '../scss/header.scss'
 
 function Header() {
+    const dispatsh = useAppDispatch()
+    const { isLogIn, userName } = useAppSelector((state) => state.users)
+
+    const handleLogOut = () => {
+        dispatsh(setIsLogIn(false))
+
+        //@ts-ignore
+        localStorage.setItem('isLogIn', false)
+    }
+
     return (
         <>
             <div className="wrapper">
@@ -40,16 +53,49 @@ function Header() {
                                     History
                                 </Link>
                             </li>
-                            <li className="nav-item">
+                            {isLogIn ? (
+                                <nav>
+                                    <strong>{userName}</strong>
+                                    &nbsp;
+                                    <Link
+                                        onClick={handleLogOut}
+                                        to="/signin"
+                                        className="nav-link"
+                                    >
+                                        log out
+                                    </Link>
+                                </nav>
+                            ) : (
+                                <>
+                                    <li className="nav-item">
+                                        <Link
+                                            to={'/signin'}
+                                            className="nav-link"
+                                        >
+                                            Sign in
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link
+                                            to={'/signup'}
+                                            className="nav-link"
+                                        >
+                                            Sign up
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
+
+                            {/* <li className="nav-item">
                                 <Link to={'/signin'} className="nav-link">
                                     Sign in
                                 </Link>
-                            </li>
-                            <li className="nav-item">
+                            </li> */}
+                            {/* <li className="nav-item">
                                 <Link to={'/signup'} className="nav-link">
                                     Sign up
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </nav>
                 </header>

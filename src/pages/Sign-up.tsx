@@ -3,6 +3,16 @@ import '../scss/signUp.scss'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+
+import {
+    setUsers,
+    setIsLogIn,
+    setUserName,
+    setUserPassword,
+    setUserEmail,
+} from '../store/slices/usersSlice'
+
 type Inputs = {
     email: string
     name: string
@@ -17,8 +27,28 @@ function SignUp() {
     } = useForm<Inputs>({
         mode: 'onBlur',
     })
+
+    const dispatsh = useAppDispatch()
+    const { isLogIn, users } = useAppSelector((state) => state.users)
+    console.log(users)
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data)
+        // console.log(data)
+        //@ts-ignore
+        localStorage.setItem('isLogIn', true)
+        localStorage.setItem('id', JSON.stringify(data))
+        //@ts-ignore
+
+        localStorage.setItem('userName', data.name)
+        localStorage.setItem('userPassword', data.password)
+        localStorage.setItem('userEmail', data.email)
+        //@ts-ignore
+
+        dispatsh(setUsers(data))
+        dispatsh(setIsLogIn(true))
+        dispatsh(setUserName(data.name))
+        dispatsh(setUserPassword(data.password))
+        dispatsh(setUserEmail(data.email))
     }
 
     return (
