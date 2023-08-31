@@ -19,6 +19,8 @@ const HomePage: React.FC = () => {
         const search = searchValue ? `&search=${searchValue}` : ''
         dispatch(fetchProduct({ search }))
         console.log(search)
+        console.log(searchValue)
+        console.log(items)
     }
 
     React.useEffect(() => {

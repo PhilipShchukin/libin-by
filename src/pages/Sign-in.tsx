@@ -3,6 +3,8 @@ import '../scss/signUp.scss'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+import { useNavigate } from 'react-router-dom'
+
 import { useAppDispatch } from '../hooks/hooks'
 import { setIsLogIn } from '../store/slices/usersSlice'
 
@@ -21,6 +23,7 @@ function SignIn() {
         mode: 'onBlur',
     })
 
+    const navigate = useNavigate()
     const dispatsh = useAppDispatch()
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -31,6 +34,7 @@ function SignIn() {
             localStorage.getItem('userPassword') === data.password
         ) {
             dispatsh(setIsLogIn(true))
+            navigate('/', { replace: true })
         }
     }
 

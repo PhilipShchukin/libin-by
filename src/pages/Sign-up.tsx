@@ -1,6 +1,8 @@
 import React from 'react'
 import '../scss/signUp.scss'
 
+import { useNavigate } from 'react-router-dom'
+
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
@@ -27,7 +29,7 @@ function SignUp() {
     } = useForm<Inputs>({
         mode: 'onBlur',
     })
-
+    const navigate = useNavigate()
     const dispatsh = useAppDispatch()
     const { isLogIn, users } = useAppSelector((state) => state.users)
     console.log(users)
@@ -49,6 +51,9 @@ function SignUp() {
         dispatsh(setUserName(data.name))
         dispatsh(setUserPassword(data.password))
         dispatsh(setUserEmail(data.email))
+        //@ts-ignore
+
+        navigate('/', { replace: true })
     }
 
     return (
