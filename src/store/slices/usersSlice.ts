@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// export interface SearchSliceState {
-//     searchValue: string;
-//   }
 const initialState = {
   users: {},
   isLogIn: localStorage.getItem("isLogIn") === "true" ,

@@ -2,7 +2,10 @@ import React from 'react'
 import debounce from 'lodash.debounce'
 
 import '../scss/searchCom.scss'
-import { useAppDispatch } from '../hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+
+import { useNavigate } from 'react-router-dom'
+import qs from 'qs'
 
 import { setSearchValue } from '../store/slices/searchSlice'
 
@@ -10,6 +13,10 @@ export const SearchComponent: React.FC = () => {
     const dispatch = useAppDispatch()
     const [value, setValue] = React.useState<string>('')
     const inputRef = React.useRef<HTMLInputElement>(null)
+
+    const navigate = useNavigate()
+
+    const { searchValue } = useAppSelector((state) => state.search)
 
     const onClickClear = () => {
         dispatch(setSearchValue(''))
@@ -27,6 +34,16 @@ export const SearchComponent: React.FC = () => {
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)
         updateSearchValue(event.target.value)
+    }
+    document.onkeydown = function (e) {
+        if (e.key === 'Enter') {
+            // navigate('/search')
+
+            const queryString = qs.stringify({
+                searchValue,
+            })
+            navigate(`/search?${queryString}`)
+        }
     }
 
     return (

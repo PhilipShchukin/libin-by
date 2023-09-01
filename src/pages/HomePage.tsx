@@ -2,7 +2,6 @@ import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { fetchProduct } from '../store/slices/productSlice'
-
 import ProductBlock from '../components/ProductBlock'
 
 import '../scss/homePage.scss'
@@ -15,32 +14,28 @@ const HomePage: React.FC = () => {
     const { searchValue } = useAppSelector((state) => state.search)
 
     const getProduct = async () => {
-        // const search = searchValue
         const search = searchValue ? `&search=${searchValue}` : ''
         dispatch(fetchProduct({ search }))
-        console.log(search)
-        console.log(searchValue)
-        console.log(items)
     }
 
     React.useEffect(() => {
         getProduct()
     }, [searchValue])
 
+    const product = items.map((obj: any) => (
+        <ProductBlock {...obj} types={obj.types} />
+    ))
+
+    const skeletons = [...new Array(6)].map((_, index) => (
+        <Skeleton key={index} />
+    ))
+
     return (
         <div className="wrapper">
             <SearchComponent />
 
             <div className="container">
-                {status === 'loading'
-                    ? [...new Array(8)].map((_, index) => (
-                          <Skeleton key={index} />
-                      ))
-                    : items.map((obj) => (
-                          //@ts-ignore
-
-                          <ProductBlock {...obj} types={obj.types} />
-                      ))}
+                {status === 'loading' ? skeletons : product}
             </div>
         </div>
     )

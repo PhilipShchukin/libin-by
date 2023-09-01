@@ -9,6 +9,7 @@ import Info from './pages/Info'
 import SignIn from './pages/Sign-in'
 import SignUp from './pages/Sign-up'
 import Search from './pages/Search'
+import FullProduct from './pages/FullProduct'
 
 function App() {
     return (
@@ -35,6 +36,9 @@ function App() {
                 </Routes>
                 <Routes>
                     <Route path="/search" element={<Search />} />
+                </Routes>
+                <Routes>
+                    <Route path="/fullproduct/:id" element={<FullProduct />} />
                 </Routes>
             </div>
         </>
