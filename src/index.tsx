@@ -9,15 +9,18 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 import store from './store/store'
+import { ThemeProvider } from './store/theme-context'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </BrowserRouter>
+        <ThemeProvider>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <App />
+                </Provider>
+            </BrowserRouter>
+        </ThemeProvider>
     </React.StrictMode>
 )
 

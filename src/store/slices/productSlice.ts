@@ -3,15 +3,14 @@ import axios from "axios";
 
 export type SearchProductParams = {
   search: string;
-
 };
 
 export const fetchProduct = createAsyncThunk <Product[], SearchProductParams>(
     'product/fetchProduct',
-    async (params) => {
+    async (params?) => {
       const {  search } = params
       const { data } = await axios
-        .get<Product[]>(`https://628ce7a43df57e983ed86e96.mockapi.io/Man?${search}`)
+        .get<Product[]>(`https://628ce7a43df57e983ed86e96.mockapi.io/Man?&search=${search}`)
       return data
     }
   )
@@ -22,10 +21,10 @@ export enum Status {
     ERROR = 'error',
   }
 export type Product = {
-    id: string;
+    id: string ;
     title: string;
     price: number;
-    imageUrl: string;
+    image: string;
     sizes: number[];
     types: number[];
     rating: number;
@@ -49,7 +48,7 @@ export const productSlice = createSlice({
         },
     },
       extraReducers: (builder) => {
-        builder.addCase(fetchProduct.pending, (state, action) => {
+        builder.addCase(fetchProduct.pending, (state) => {
           state.status = Status.LOADING;
           state.items = [];
         });
@@ -59,11 +58,12 @@ export const productSlice = createSlice({
           state.status = Status.SUCCESS;
         });
     
-        builder.addCase(fetchProduct.rejected, (state, action) => {
+        builder.addCase(fetchProduct.rejected, (state ) => {
           state.status = Status.ERROR;
           state.items = [];
         });
       },
+      
 })
 
 export const { setItems } = productSlice.actions

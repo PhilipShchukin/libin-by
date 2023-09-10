@@ -1,22 +1,22 @@
 import React from 'react'
 import debounce from 'lodash.debounce'
-
-import '../scss/searchCom.scss'
-import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-
 import { useNavigate } from 'react-router-dom'
-import qs from 'qs'
+import '../scss/searchCom.scss'
+import { FormEvent } from 'react'
+
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 
 import { setSearchValue } from '../store/slices/searchSlice'
 
 export const SearchComponent: React.FC = () => {
     const dispatch = useAppDispatch()
-    const [value, setValue] = React.useState<string>('')
+
     const inputRef = React.useRef<HTMLInputElement>(null)
 
     const navigate = useNavigate()
 
     const { searchValue } = useAppSelector((state) => state.search)
+    const [value, setValue] = React.useState<string>(searchValue)
 
     const onClickClear = () => {
         dispatch(setSearchValue(''))
@@ -35,21 +35,15 @@ export const SearchComponent: React.FC = () => {
         setValue(event.target.value)
         updateSearchValue(event.target.value)
     }
-    document.onkeydown = function (e) {
-        if (e.key === 'Enter') {
-            // navigate('/search')
 
-            const queryString = qs.stringify({
-                searchValue,
-            })
-            navigate(`/search?${queryString}`)
-        }
+    const clickEnter = (e: FormEvent<HTMLFormElement>) => {
+        navigate(`/search?search=${searchValue}`)
     }
 
     return (
         <div className="root">
             <svg
-                className="icon"
+                className="icons"
                 enableBackground="new 0 0 32 32"
                 id="EditableLine"
                 version="1.1"
@@ -82,23 +76,25 @@ export const SearchComponent: React.FC = () => {
                     y2="20.366"
                 />
             </svg>
-            <input
-                ref={inputRef}
-                value={value}
-                onChange={onChangeInput}
-                className="input"
-                placeholder="Поиск костюма..."
-            />
-            {value && (
-                <svg
-                    onClick={onClickClear}
-                    className="clearIcon"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
-                </svg>
-            )}
+            <form onSubmit={clickEnter}>
+                <input
+                    ref={inputRef}
+                    value={value}
+                    onChange={onChangeInput}
+                    className="input"
+                    placeholder="Поиск костюма..."
+                />
+                {value && (
+                    <svg
+                        onClick={onClickClear}
+                        className="clearIcon"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+                    </svg>
+                )}
+            </form>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import ContentLoader from 'react-content-loader'
-import '../scss/skeleton.scss'
+import './skeleton.scss'
 
 const Skeleton = () => (
     <div className="skele">

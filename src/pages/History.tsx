@@ -1,17 +1,59 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate, Navigate } from 'react-router-dom'
+import classNames from 'classnames'
 
-import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { RootState } from '../types/types'
+import HistoryItem from '../components/HistoryItem'
+import { setDeleteAll } from '../store/slices/historySlice'
 
-function History() {
-    // const navigate = useNavigate()
+const History = () => {
+    const navigate = useNavigate()
+    const history = useSelector((state: RootState) => state.history)
+    const isHistoryEmpty = history.length === 0
 
-    // const { isLogIn } = useAppSelector((state) => state.users)
+    const { email: user } = useSelector((state: RootState) => state.user)
+    const clearButtonClasses = classNames('button', {
+        disabled: isHistoryEmpty,
+    })
 
-    // if (isLogIn === false) {
-    //     navigate('/signup', { replace: false })
-    // }
-    return <div>History</div>
+    const historyList = history.map((item) => {
+        const clickItemHandler = () => {
+            navigate(`/search?search=${item.search}`)
+        }
+        return (
+            <HistoryItem
+                key={Math.random().toString()}
+                data={item}
+                onClick={clickItemHandler}
+            />
+        )
+    })
+
+    const dispatch = useDispatch()
+    const clearHistoryHandler = () => {
+        dispatch(setDeleteAll())
+        navigate(0)
+    }
+    if (!user) {
+        return <Navigate to="/signin" replace />
+    }
+    if (!history.length) {
+        return <h2 className="wrapper">History is empty</h2>
+    }
+
+    return (
+        <div className="wrapper">
+            <div className="history">
+                <button
+                    className={clearButtonClasses}
+                    onClick={clearHistoryHandler}
+                >
+                    Clear
+                </button>
+                <ul>{historyList}</ul>
+            </div>
+        </div>
+    )
 }
 
 export default History

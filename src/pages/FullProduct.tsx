@@ -1,7 +1,8 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-
 import axios from 'axios'
+
+import ProductBlock from '../components/ProductBlock'
 
 const FullProduct: React.FC = () => {
     const { id } = useParams()
@@ -11,6 +12,7 @@ const FullProduct: React.FC = () => {
         image: string
         title: string
         price: number
+        id: string
     }>()
 
     React.useEffect(() => {
@@ -27,7 +29,7 @@ const FullProduct: React.FC = () => {
         }
 
         getProduct()
-    }, [])
+    }, [id, navigate])
 
     if (!product) {
         return <h1>'...Загрузка'</h1>
@@ -35,13 +37,7 @@ const FullProduct: React.FC = () => {
     return (
         <div className="wrapper">
             <div className="product-block">
-                <img
-                    className="product-block__image"
-                    src={product.image}
-                    alt="product"
-                />
-                <h2>{product.title}</h2>
-                <h4>{product.price}</h4>
+                <ProductBlock {...product} />
             </div>
         </div>
     )

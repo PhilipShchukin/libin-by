@@ -1,38 +1,42 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  users: {},
-  isLogIn: localStorage.getItem("isLogIn") === "true" ,
-  userName: localStorage.getItem("userName"),
-  userPassword: localStorage.getItem("userPassword"),
-  userEmail: localStorage.getItem("userEmail"),
-  
+const initialUserState = {
+  email: null  
 };
 
 
 const usersSlice = createSlice({
-  name: 'users',
-  initialState,
+  name: 'user',
+  initialState:initialUserState,
   reducers: {
-    setUsers(state, action: PayloadAction<string>) {
-      state.users = action.payload;
+
+    setLogin(state, action) {
+      if (action.payload?.error) {
+        state = initialUserState;
+      } else {
+        state.email = action.payload;
+      }
     },
-    setIsLogIn(state, action: PayloadAction<boolean>) {
-      state.isLogIn = action.payload;
+
+    setSignup(state, action) {
+      if (action.payload?.error) {
+        state = initialUserState;
+      } else {
+        state.email = action.payload;
+      }
     },
-    setUserName(state, action: PayloadAction<string>) {
-      state.userName = action.payload;
-    }, 
-    setUserPassword(state, action: PayloadAction<string>) {
-      state.userPassword = action.payload;
+
+    setLogout(state) {
+      state = initialUserState;
     },
-    setUserEmail(state, action: PayloadAction<string>) {
-      state.userEmail = action.payload;
-    },    
+
+    setGetSavedUser(state, action) {
+      state = action.payload;
+    },   
   },
 });
 
-export const {  setUsers, setIsLogIn, setUserName,setUserPassword,setUserEmail } =
+export const {  setLogin, setSignup, setLogout,setGetSavedUser } =
 usersSlice.actions;
 
 export default usersSlice.reducer;
