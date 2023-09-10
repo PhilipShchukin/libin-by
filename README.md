@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# LIBIN-BY
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Сделано приложение для поиска одежды.
 
-## Available Scripts
+Реализованы следующие требования к функциональности:
 
-In the project directory, you can run:
+## 1 уровень (необходимый минимум)
 
-### `npm start`
+### React
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   Функциональные компоненты c хуками в приоритете над классовыми.
+-   Есть разделение на умные и глупые компоненты
+    Умные: [SearchComponent](https://github.com/PhilipShchukin/libin-by/blob/main/src/components/SearchComponent.tsx)и т.д.
+    Глупые: [ProductBlock](https://github.com/PhilipShchukin/libin-by/blob/main/src/components/ProductBlock.tsx) и т.д.
+-   Есть рендеринг списков: [HomePage](https://github.com/PhilipShchukin/libin-by/blob/main/src/pages/HomePage.tsx) и т.д.
+-   Реализована хотя бы одна форма: [AuthForm](https://github.com/PhilipShchukin/libin-by/blob/main/src/components/AuthForm.tsx).
+-   Есть применение Контекст API: [Theme-context](https://github.com/PhilipShchukin/libin-by/blob/main/src/store/theme-context.tsx).
+-   Есть применение предохранителя: [ErrorBoundary](https://github.com/PhilipShchukin/libin-by/blob/main/src/components/ErrorBoundary.tsx).
+-   Есть хотя бы один кастомный хук: [-]()).
+-   Хотя бы несколько компонентов используют PropTypes: [AuthForm](https://github.com/PhilipShchukin/libin-by/blob/main/src/components/AuthForm.tsx).
+-   Поиск не должен триггерить много запросов к серверу, использован в компоненте [SearchComponent](https://github.com/PhilipShchukin/libin-by/blob/main/src/components/SearchComponent.tsx).
+-   Есть применение lazy + Suspense: [Routes](https://github.com/PhilipShchukin/libin-by/blob/main/src/App.tsx).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Redux
 
-### `npm test`
+-   Используем Modern Redux with Redux Toolkit: [store](https://github.com/PhilipShchukin/libin-by/blob/main/src/store/store.ts).
+-   Используем слайсы: [productSlice](https://github.com/PhilipShchukin/libin-by/blob/main/src/store/slices/productSlice.ts).
+-   Есть хотя бы одна кастомная мидлвара: [saveUserData](https://github.com/PhilipShchukin/libin-by/blob/main/src/utils/saveUserData.ts).
+-   Используется RTK Query: [-]().
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 2 уровень
 
-### `npm run build`
+-   Использован TypeScript.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Дополнительно
+- Использована библиотека react-hook-form для форм регистрации и входа
+- Использована библиотека react-error-boundary для предохранителя
+- Использована библиотека ant-design для предохранителя
